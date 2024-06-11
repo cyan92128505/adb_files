@@ -5,11 +5,21 @@ class AdbFile {
   final bool isDirectory;
   final String path;
 
-  AdbFile(this.name, this.isDirectory, this.path);
+  AdbFile(
+    this.name,
+    this.isDirectory,
+    this.path,
+  );
 
   String get fullPath => p.join(path, name);
 
-  AdbFile.fromName(name, this.path)
-      : isDirectory = name.endsWith('/'),
+  AdbFile.fromName(
+    name,
+    this.path,
+  )   : isDirectory = name.endsWith('/'),
         name = p.basename(name);
+
+  List<String> getFormatNameList() {
+    return name.split('.');
+  }
 }

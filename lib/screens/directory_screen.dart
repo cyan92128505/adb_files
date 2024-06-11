@@ -15,19 +15,19 @@ class DirectoryScreen extends StatelessWidget {
         ? const Center(
             child: CircularProgressIndicator(),
           )
-        : GridView.builder(
-            shrinkWrap: true,
-            itemCount: state.files.length,
-            itemBuilder: (context, i) {
-              var file = state.files[i];
-              return FileItem(
-                file: file,
-              );
-            },
-            // crossAxisSpacing: 3.0,
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 136.0),
-            // )
+        : Expanded(
+            child: GridView.builder(
+              shrinkWrap: true,
+              itemCount: state.files.length,
+              itemBuilder: (context, i) => FileItem(
+                file: state.files[i],
+              ),
+              // crossAxisSpacing: 3.0,
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 136.0,
+              ),
+              // )
+            ),
           );
   }
 }

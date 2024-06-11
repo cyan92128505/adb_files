@@ -1,6 +1,7 @@
 import 'package:adb_files/components/delete_dialog.dart';
 import 'package:adb_files/components/download_dialog.dart';
 import 'package:adb_files/models/app_state_manager.dart';
+import 'package:file_icon/file_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../api/repository.dart';
@@ -74,7 +75,7 @@ class _FileItemState extends State<FileItem> {
           actions: <Widget>[
             TextButton(
               style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.all(Colors.red)),
+                  foregroundColor: WidgetStateProperty.all(Colors.red)),
               child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -84,7 +85,10 @@ class _FileItemState extends State<FileItem> {
               child: const Text('Proceed'),
               onPressed: () {
                 Repository.rename(
-                    widget.file.path, widget.file.name, _controller.text);
+                  widget.file.path,
+                  widget.file.name,
+                  _controller.text,
+                );
                 Navigator.of(context).pop();
               },
             ),
@@ -131,8 +135,8 @@ class _FileItemState extends State<FileItem> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
-              widget.file.isDirectory ? Icons.folder : Icons.file_copy,
+            FileIcon(
+              widget.file.isDirectory ? '.sql' : '.sh',
               size: 64.0,
             ),
             _isRename
@@ -151,8 +155,32 @@ class _FileItemState extends State<FileItem> {
                       // Repository.rename(file.path, file.name, value);
                     },
                   )
-                : Text(
-                    widget.file.name,
+                : SelectableText.rich(
+                    TextSpan(
+                      children: widget.file
+                          .getFormatNameList()
+                          .asMap()
+                          .map((index, text) {
+                            return MapEntry(
+                              index,
+                              TextSpan(
+                                text: widget.file.getFormatNameList().length ==
+                                        index + 1
+                                    ? text
+                                    : '$text.',
+                                style: TextStyle(
+                                  color: widget.file.isDirectory
+                                      ? index % 2 == 1
+                                          ? Colors.blue
+                                          : Colors.black87
+                                      : Colors.black87,
+                                ),
+                              ),
+                            );
+                          })
+                          .values
+                          .toList(),
+                    ),
                     maxLines: 2,
                   )
           ],

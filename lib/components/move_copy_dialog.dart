@@ -14,7 +14,7 @@ class MoveCopyDialog extends StatefulWidget {
 class _MoveCopyDialogState extends State<MoveCopyDialog> {
   @override
   void initState() {
-    SchedulerBinding.instance?.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       final appStateManager = context.read<AppStateManager>();
       final moveCopyManager = context.read<MoveCopyManager>();
       if (appStateManager.fileExistsAlready(moveCopyManager.file)) {
@@ -54,8 +54,8 @@ class _MoveCopyDialogState extends State<MoveCopyDialog> {
                               moveCopyManager.paste(widget.fullPath,
                                   replace: true);
                             },
-                            child: Column(
-                              children: const [
+                            child: const Column(
+                              children: [
                                 Text('Replace'),
                                 Text(
                                     'This means whole folder will be replaced!')
@@ -68,8 +68,8 @@ class _MoveCopyDialogState extends State<MoveCopyDialog> {
                                 moveCopyManager.paste(widget.fullPath,
                                     merge: true);
                               },
-                              child: Column(
-                                children: const [
+                              child: const Column(
+                                children: [
                                   Text('Merge'),
                                   Text(
                                       "This means the 2 folders will be merged together but any subfiles and subdirectories will be overwritten!")

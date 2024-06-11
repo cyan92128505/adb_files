@@ -63,7 +63,7 @@ class _DeleteDialogState extends State<DeleteDialog> {
         if (_crudInfo == null)
           TextButton(
             style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(Colors.red)),
+                foregroundColor: WidgetStateProperty.all(Colors.red)),
             child: const Text('Delete'),
             onPressed: () {
               delete();

@@ -32,7 +32,7 @@ class AppRouter extends RouterDelegate
   }
 
   @override
-  Future<void> setNewRoutePath(configuration) async => null;
+  Future<void> setNewRoutePath(configuration) async {}
 
   bool _onPopPage(Route route, result) {
     if (!route.didPop(result)) return false;
